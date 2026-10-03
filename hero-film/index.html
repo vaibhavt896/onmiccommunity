@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>On Mic — hero film</title>
+<style>
+@font-face { font-family: "Anton"; src: url("node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Instrument Serif"; font-style: italic; src: url("node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Space Mono"; font-weight: 700; src: url("node_modules/@fontsource/space-mono/files/space-mono-latin-700-normal.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "DM Sans"; font-weight: 500; src: url("node_modules/@fontsource/dm-sans/files/dm-sans-latin-500-normal.woff2") format("woff2"); font-display: block; }
+
+:root { --ink:#0D0616; --cream:#FFF4E6; --lime:#C6FF3D; --magenta:#FF2E93; --violet:#4A1FE0; --orange:#FF7A2F; --cyan:#3FD0FF; }
+html, body { margin: 0; padding: 0; background: var(--ink); overflow: hidden; }
+#frame { position: relative; overflow: hidden; background: var(--ink); isolation: isolate; }
+.layer { position: absolute; inset: 0; pointer-events: none; }
+#gl { position: absolute; inset: 0; width: 100%; height: 100%; }
+.abs { position: absolute; left: 0; top: 0; will-change: auto; }
+.disp { font-family: "Anton", sans-serif; font-weight: 400; line-height: 0.86; letter-spacing: -0.01em; white-space: nowrap; text-transform: uppercase; }
+.serif { font-family: "Instrument Serif", serif; font-style: italic; line-height: 1; white-space: nowrap; letter-spacing: -0.02em; }
+.mono { font-family: "Space Mono", monospace; font-weight: 700; text-transform: uppercase; white-space: nowrap; }
+.mask { position: absolute; overflow: hidden; }
+.mask > span { display: block; }
+.ch { display: inline-block; }
+</style>
+</head>
+<body>
+<div id="frame">
+  <div id="bg" class="layer"></div>
+  <div id="back" class="layer"></div>
+  <canvas id="gl"></canvas>
+  <canvas id="dust" class="layer"></canvas>
+  <div id="front" class="layer"></div>
+</div>
+<script type="importmap">
+{ "imports": { "three": "./node_modules/three/build/three.module.js", "three/addons/": "./node_modules/three/examples/jsm/" } }
+</script>
+<script type="module" src="film.js"></script>
+</body>
+</html>

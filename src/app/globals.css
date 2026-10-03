@@ -1,0 +1,400 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ tokens
+   Brief §2. Every value lives here as a CSS variable / Tailwind token. */
+@theme {
+  --color-ink: #0d0616;
+  --color-violet: #6b2cff;
+  --color-violet-deep: #3a12a8;
+  --color-magenta: #ff2e93;
+  --color-lime: #c6ff3d;
+  --color-orange: #ff7a2f;
+  --color-sky: #47d7ff;
+  --color-cream: #fff3e2;
+
+  --font-display: var(--font-anton), Impact, "Arial Narrow Bold", sans-serif;
+  --font-serif: var(--font-instrument), Georgia, serif;
+  --font-body: var(--font-dmsans), system-ui, sans-serif;
+  --font-mono: var(--font-spacemono), ui-monospace, monospace;
+  --font-marker: var(--font-marker), "Comic Sans MS", cursive;
+
+  --radius-card: 24px;
+  --radius-card-lg: 28px;
+  --radius-input: 16px;
+  --radius-chip: 14px;
+}
+
+:root {
+  --outline: 3px solid var(--color-ink);
+  --outline-sm: 2px solid var(--color-ink);
+  --shadow: 5px 5px 0 var(--color-ink);
+  --shadow-lg: 8px 8px 0 var(--color-ink);
+  --shadow-press: 2px 2px 0 var(--color-ink);
+  --gutter: 20px;
+  --section-y: 52px;
+  --heading-gap: 28px;
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+html {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 76px;
+}
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.45;
+  background: var(--color-ink);
+  overflow-x: clip;
+  -webkit-tap-highlight-color: transparent;
+}
+main { overflow-x: clip; }
+::selection { background: var(--color-lime); color: var(--color-ink); }
+
+/* Visible focus on the thick-outline style (brief §9). */
+:focus-visible {
+  outline: 3px solid var(--color-sky);
+  outline-offset: 3px;
+}
+.on-sky :focus-visible, .bg-sky :focus-visible { outline-color: var(--color-magenta); }
+
+.sr-only-focusable:not(:focus) {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+@layer components {
+/* ------------------------------------------------------------------ type */
+.font-display { font-family: var(--font-display); text-transform: uppercase; font-weight: 400; }
+.font-serif-i { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
+.kicker {
+  font-family: var(--font-mono); font-weight: 700; font-size: 12px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.mono { font-family: var(--font-mono); font-weight: 700; }
+
+.h-display {
+  font-family: var(--font-display); text-transform: uppercase;
+  font-size: clamp(56px, 17vw, 72px); line-height: 0.9; letter-spacing: 0.5px;
+}
+.h-serif {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: clamp(48px, 14.5vw, 64px); line-height: 0.95;
+}
+@media (min-width: 1024px) {
+  .h-display { font-size: 104px; }
+  .h-serif { font-size: 88px; }
+}
+
+/* A mask line: the heading's first line rises in from beneath it. */
+.mask { display: block; overflow: hidden; padding-bottom: 0.04em; margin-bottom: -0.04em; }
+.mask > * { display: inline-block; }
+
+/* ------------------------------------------------------------------ layout */
+.wrap { width: 100%; max-width: 1240px; margin-inline: auto; padding-inline: var(--gutter); }
+.section { padding-block: var(--section-y); position: relative; }
+@media (min-width: 1024px) { :root { --section-y: 112px; --gutter: 48px; } }
+
+/* ------------------------------------------------------------------ buttons
+   Primary: lime, Anton 26px, pill, 3px outline, 5px hard shadow.
+   Press/hover: translate 3px 3px, shadow down to 2px. Release springs back in 120ms. */
+.btn {
+  --btn-shadow: var(--color-ink);
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  min-height: 60px; padding: 10px 28px;
+  font-family: var(--font-display); text-transform: uppercase; font-size: 26px; letter-spacing: 1px; line-height: 1;
+  color: var(--color-ink); background: var(--color-lime);
+  border: var(--outline); border-radius: 999px;
+  box-shadow: 5px 5px 0 var(--btn-shadow);
+  transition: transform 120ms var(--ease-spring), box-shadow 120ms var(--ease-spring);
+  cursor: pointer; user-select: none; touch-action: manipulation; text-decoration: none;
+}
+.btn:active, .btn.is-pressed { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--btn-shadow); }
+@media (hover: hover) {
+  .btn:hover { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--btn-shadow); }
+}
+.btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+.btn-secondary { background: var(--color-cream); }
+.btn-white { background: #fff; }
+.btn-dark { background: var(--color-ink); color: var(--color-lime); --btn-shadow: var(--color-magenta); border-color: var(--color-ink); }
+.btn-sm { min-height: 44px; font-size: 18px; padding: 8px 18px; }
+.btn-block { width: 100%; }
+
+.pill {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 18px;
+  font-family: var(--font-display); text-transform: uppercase; font-size: 18px; letter-spacing: 0.5px;
+  color: var(--color-ink); background: var(--color-cream);
+  border: var(--outline); border-radius: 999px; box-shadow: 3px 3px 0 var(--color-ink);
+  transition: transform 120ms var(--ease-spring), box-shadow 120ms var(--ease-spring), background-color 200ms;
+}
+.pill:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--color-ink); }
+
+/* ------------------------------------------------------------------ chips, stickers, cards */
+.chip {
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px;
+  font-family: var(--font-mono); font-weight: 700; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-ink); background: var(--color-cream);
+  border: var(--outline-sm); border-radius: 999px; white-space: nowrap;
+}
+.card {
+  border: var(--outline); border-radius: var(--radius-card); box-shadow: var(--shadow);
+  color: var(--color-ink);
+}
+.card-lg { border-radius: var(--radius-card-lg); box-shadow: 7px 7px 0 var(--color-ink); }
+.sticker {
+  border: var(--outline); box-shadow: 4px 4px 0 var(--color-ink); color: var(--color-ink);
+}
+/* Rotate the wrapper, never the text alone (brief §2). */
+.tilt { transform: rotate(var(--r, 0deg)); }
+.tilt-inner { transform-style: preserve-3d; will-change: transform; }
+
+/* Pulsing dot (1.2s loop) */
+.pulse-dot {
+  width: 9px; height: 9px; border-radius: 999px; background: var(--color-magenta);
+  box-shadow: 0 0 0 0 rgba(255, 46, 147, 0.7); animation: pulse 1.2s ease-out infinite;
+  flex: none;
+}
+@keyframes pulse {
+  0% { transform: scale(0.85); box-shadow: 0 0 0 0 rgba(255, 46, 147, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(255, 46, 147, 0); }
+  100% { transform: scale(0.85); box-shadow: 0 0 0 0 rgba(255, 46, 147, 0); }
+}
+
+/* ------------------------------------------------------------------ nav */
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 40;
+  transition: background-color 250ms, box-shadow 250ms;
+}
+.nav[data-solid="true"] { background: var(--color-ink); box-shadow: 0 3px 0 rgba(198, 255, 61, 0.9); }
+.nav[data-solid="true"] .pill { background: var(--color-lime); }
+
+/* ------------------------------------------------------------------ hero (film stage)
+   The film is the headline and plays clean: full colour, no scrim, no UI on top
+   (it is framed full-bleed with its own type). The dock sits on ink right below it.
+   Film height is capped so the CTA always lands in the first screen. Phones crop only
+   from the bottom and never past ~27% ("YOUR TURN." still fits); on anything shorter
+   the dock rides up over the film's bottom edge instead (the negative margin below). */
+.hero { position: relative; overflow: hidden; isolation: isolate; background: var(--color-ink); padding-bottom: 150px; }
+.hero-film { position: relative; width: 100%; overflow: hidden; background: var(--color-ink); }
+.hero-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero-video { opacity: 0; transition: opacity 240ms linear; }
+.hero-video[data-live="true"] { opacity: 1; }
+
+.hero-dock {
+  position: relative; z-index: 3; display: grid; gap: 14px 12px; padding-top: 16px;
+  grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "cta cta" "meta pause";
+}
+.hero-dock .dock-cta { grid-area: cta; width: 100%; max-width: 560px; }
+.hero-dock .dock-meta { grid-area: meta; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; min-width: 0; }
+.hero-dock .hero-pause { grid-area: pause; }
+
+/* Phone-shaped screens (w/h ≤ 0.7): 9:16 cut below the nav, cropped only from the bottom. */
+@media (max-aspect-ratio: 7/10) {
+  .hero { padding-top: 68px; }
+  .hero-film { height: 177.78vw; height: min(177.78vw, max(100svh - 160px, 130vw)); }
+  .hero-media { object-position: 50% 0%; }
+  .hero-dock { margin-top: min(0px, 100svh - 160px - min(177.78vw, max(100svh - 160px, 130vw))); }
+  .hero-dock .hero-pause { align-self: start; }
+}
+/* Everything wider (desktop, laptop, tablets): 16:9 cut full-bleed under the nav. */
+@media (min-aspect-ratio: 7001/10000) {
+  .hero-film { height: 56.25vw; height: min(56.25vw, max(100svh - 96px, 42vw)); }
+  .hero-media { object-position: 50% 50%; }
+  .hero-dock { margin-top: min(0px, 100svh - 96px - min(56.25vw, max(100svh - 96px, 42vw))); }
+}
+/* Wide enough for one bar: CTA · date + note · pause. */
+@media (min-aspect-ratio: 7001/10000) and (min-width: 1024px) {
+  .hero-dock {
+    grid-template-columns: minmax(0, 440px) minmax(0, 1fr) auto; grid-template-areas: "cta meta pause"; align-items: center;
+    column-gap: 28px; padding-top: 18px;
+  }
+  .hero-dock .dock-cta { max-width: none; }
+  .hero-dock .dock-meta { flex-direction: row; align-items: center; flex-wrap: wrap; gap: 10px 20px; }
+}
+
+.hero-pause {
+  display: grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 999px;
+  color: var(--color-cream); background: transparent; border: 2px solid rgba(255, 243, 226, 0.7);
+  transition: transform 120ms var(--ease-spring), background-color 160ms, color 160ms;
+}
+.hero-pause:active { transform: scale(0.92); }
+@media (hover: hover) { .hero-pause:hover { background: var(--color-cream); color: var(--color-ink); } }
+
+/* Marquee tapes */
+.tapes { position: absolute; left: -10%; right: -10%; bottom: 26px; height: 120px; pointer-events: none; }
+.tape {
+  position: absolute; left: 0; right: 0; overflow: hidden; white-space: nowrap;
+  border-block: var(--outline); padding-block: 8px;
+  font-family: var(--font-display); text-transform: uppercase; font-size: 22px; letter-spacing: 1px; color: var(--color-ink);
+}
+.tape-lime { background: var(--color-lime); top: 18px; transform: rotate(-4deg); }
+.tape-mag { background: var(--color-magenta); top: 52px; transform: rotate(3deg); }
+.tape-track { display: inline-flex; will-change: transform; }
+.tape-track span { padding-right: 18px; }
+
+/* ------------------------------------------------------------------ ticket */
+.ticket {
+  position: relative; background: var(--color-cream); color: var(--color-ink);
+  border: var(--outline); border-radius: var(--radius-card-lg); box-shadow: var(--shadow-lg);
+}
+.ticket .notch {
+  position: absolute; top: var(--perf, 62%); width: 30px; height: 30px; border-radius: 999px;
+  background: var(--notch, var(--color-magenta)); border: var(--outline); transform: translateY(-50%);
+}
+.ticket .notch.l { left: -17px; clip-path: inset(0 0 0 50%); }
+.ticket .notch.r { right: -17px; clip-path: inset(0 50% 0 0); }
+.ticket .perf { position: absolute; left: 22px; right: 22px; top: var(--perf, 62%); border-top: 3px dashed var(--color-ink); opacity: 0.8; }
+.meter { height: 18px; border: var(--outline-sm); border-radius: 999px; background: #fff; overflow: hidden; }
+.meter-fill {
+  height: 100%; width: 100%; transform-origin: 0 50%; transform: scaleX(var(--fill, 0));
+  background: linear-gradient(90deg, var(--color-lime), var(--color-orange) 60%, var(--color-magenta));
+}
+.redact { display: inline-block; height: 14px; border-radius: 4px; background: repeating-linear-gradient(90deg, var(--color-ink) 0 6px, #2a2233 6px 8px); }
+
+/* ------------------------------------------------------------------ bento */
+.bento { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; grid-auto-rows: 150px; }
+.bento .tile { position: relative; overflow: hidden; border: var(--outline); border-radius: var(--radius-card); box-shadow: 5px 5px 0 var(--color-lime); }
+.bento .t-crowd { grid-column: span 2; grid-row: span 2; }
+.bento .t-open { grid-column: span 2; }
+.bento .media { position: absolute; inset: -24px 0; background-size: cover; background-position: center; will-change: transform; }
+.bento .label {
+  position: absolute; left: 14px; bottom: 12px; right: 14px;
+  font-family: var(--font-display); text-transform: uppercase; font-size: 34px; line-height: 0.92; color: var(--color-cream);
+  text-shadow: 3px 3px 0 var(--color-ink);
+}
+@media (min-width: 1024px) {
+  .bento { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 210px; gap: 20px; }
+  .bento .t-crowd { grid-column: span 2; grid-row: span 2; }
+  .bento .t-open { grid-column: span 2; }
+  .bento .label { font-size: 48px; }
+}
+.grain {
+  background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 6px 6px;
+}
+
+/* ------------------------------------------------------------------ act chips */
+.act {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 8px 18px;
+  font-family: var(--font-display); text-transform: uppercase; font-size: 22px; letter-spacing: 0.5px;
+  background: var(--color-cream); color: var(--color-ink);
+  border: var(--outline); border-radius: 999px; box-shadow: 4px 4px 0 var(--color-ink);
+  transform: rotate(var(--r, 0deg)); transition: transform 160ms var(--ease-spring), box-shadow 160ms, background-color 160ms;
+  cursor: pointer;
+}
+.act[aria-pressed="true"] { background: var(--color-ink); color: var(--color-lime); box-shadow: 4px 4px 0 var(--color-magenta); transform: rotate(var(--r, 0deg)) scale(1.04); }
+.act:active { transform: rotate(var(--r, 0deg)) translate(2px, 2px); box-shadow: 2px 2px 0 var(--color-ink); }
+
+/* ------------------------------------------------------------------ sticky notes */
+.note {
+  font-family: var(--font-marker); font-size: 24px; line-height: 1.2; color: var(--color-ink);
+  border: var(--outline); box-shadow: 6px 6px 0 var(--color-ink); border-radius: 6px 6px 18px 6px;
+  padding: 26px 22px 20px; position: relative;
+}
+.note::before {
+  content: ""; position: absolute; top: -14px; left: 50%; width: 84px; height: 26px; transform: translateX(-50%) rotate(-3deg);
+  background: rgba(255, 243, 226, 0.75); border: 2px solid rgba(13, 6, 22, 0.25);
+}
+
+/* ------------------------------------------------------------------ accordion */
+.acc-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 350ms cubic-bezier(0.22, 1, 0.36, 1); }
+.acc-panel[data-open="true"] { grid-template-rows: 1fr; }
+.acc-panel > div { overflow: hidden; }
+.acc-icon { transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1); }
+[aria-expanded="true"] .acc-icon { transform: rotate(180deg); }
+
+.final-h { container-type: inline-size; font-size: min(88px, calc((100vw - 40px) / 4.8)); font-size: min(88px, 100cqi / 4.8); }
+@media (min-width: 1024px) { .final-h { font-size: min(150px, 100cqi / 4.8); } }
+
+/* ------------------------------------------------------------------ final CTA gradient (transform-only drift) */
+.final-bg { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
+.final-bg::before {
+  content: ""; position: absolute; inset: -50%;
+  background:
+    radial-gradient(40% 40% at 30% 30%, rgba(255, 46, 147, 0.55), transparent 70%),
+    radial-gradient(35% 35% at 70% 65%, rgba(71, 215, 255, 0.35), transparent 70%),
+    radial-gradient(30% 30% at 50% 90%, rgba(198, 255, 61, 0.25), transparent 70%);
+  animation: drift 18s ease-in-out infinite alternate;
+}
+@keyframes drift {
+  from { transform: translate3d(-8%, -6%, 0) rotate(0deg); }
+  to { transform: translate3d(8%, 6%, 0) rotate(25deg); }
+}
+@keyframes live { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.live-dot { width: 10px; height: 10px; border-radius: 99px; background: var(--color-magenta); animation: live 1.1s ease-in-out infinite; }
+
+/* ------------------------------------------------------------------ forms */
+.field-label { font-family: var(--font-mono); font-weight: 700; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+.input {
+  width: 100%; min-width: 0; min-height: 54px; padding: 12px 16px; font-size: 17px; font-family: var(--font-body);
+  color: var(--color-ink); background: #fff; border: var(--outline); border-radius: var(--radius-input);
+  box-shadow: 3px 3px 0 var(--color-ink);
+}
+.input::placeholder { color: #8b8392; }
+.input:focus-visible { outline: 3px solid var(--color-violet); outline-offset: 2px; }
+.input[aria-invalid="true"] { border-color: #c1005e; box-shadow: 3px 3px 0 #c1005e; }
+.error-text { color: #b0004f; font-size: 14px; font-weight: 700; }
+
+/* ------------------------------------------------------------------ sheet */
+.sheet-backdrop { position: fixed; inset: 0; z-index: 60; background: rgba(13, 6, 22, 0.72); }
+.sheet {
+  position: fixed; z-index: 61; left: 0; right: 0; bottom: 0; max-height: 94dvh; overflow-y: auto; overscroll-behavior: contain;
+  background: var(--color-cream); color: var(--color-ink);
+  border: var(--outline); border-bottom: 0; border-radius: 28px 28px 0 0;
+  box-shadow: 0 -6px 0 var(--color-lime);
+}
+@media (min-width: 768px) {
+  .sheet {
+    left: 50%; top: 50%; bottom: auto; width: min(520px, calc(100vw - 40px)); max-height: 90dvh;
+    border-bottom: var(--outline); border-radius: 28px; box-shadow: var(--shadow-lg);
+    translate: -50% -50%;
+  }
+}
+.progress { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.progress span { height: 8px; border-radius: 99px; background: rgba(13, 6, 22, 0.15); overflow: hidden; }
+.progress span::after { content: ""; display: block; height: 100%; background: var(--color-violet); transform-origin: 0 50%; transform: scaleX(0); transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1); }
+.progress span[data-on="true"]::after { transform: scaleX(1); }
+
+/* Loader: three bouncing bars */
+.bars { display: inline-flex; gap: 5px; align-items: flex-end; height: 26px; }
+.bars i { width: 7px; height: 100%; background: currentColor; border-radius: 3px; animation: bounce 0.8s ease-in-out infinite; transform-origin: 50% 100%; }
+.bars i:nth-child(2) { animation-delay: 0.12s; }
+.bars i:nth-child(3) { animation-delay: 0.24s; }
+@keyframes bounce { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
+
+/* QR card flip in */
+.flip-in { animation: flipIn 800ms cubic-bezier(0.22, 1, 0.36, 1) both; transform-origin: 50% 50%; }
+@keyframes flipIn { from { transform: perspective(900px) rotateY(-100deg); opacity: 0; } to { transform: perspective(900px) rotateY(0); opacity: 1; } }
+
+/* ------------------------------------------------------------------ door */
+.scanline { position: absolute; left: 6%; right: 6%; height: 3px; background: var(--color-lime); box-shadow: 0 0 18px var(--color-lime); animation: sweep 1.8s ease-in-out infinite alternate; }
+@keyframes sweep { from { top: 8%; } to { top: 92%; } }
+.flash-ok { animation: flashOk 600ms ease-out; }
+@keyframes flashOk { 0% { box-shadow: 0 0 0 0 rgba(198, 255, 61, 0.9); } 100% { box-shadow: 0 0 0 40px rgba(198, 255, 61, 0); } }
+.shake { animation: shake 420ms cubic-bezier(0.36, 0.07, 0.19, 0.97); }
+@keyframes shake { 10%, 90% { transform: translateX(-2px); } 20%, 80% { transform: translateX(4px); } 30%, 50%, 70% { transform: translateX(-8px); } 40%, 60% { transform: translateX(8px); } }
+.draw-check path { stroke-dasharray: 60; stroke-dashoffset: 60; animation: draw 450ms 120ms ease-out forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+} /* end @layer components */
+
+/* ------------------------------------------------------------------ motion states
+   `js-motion` is set before first paint only when motion is allowed, so
+   nothing is ever hidden for no-JS or reduced-motion visitors. */
+.js-motion [data-hero="chip"],
+.js-motion [data-hero="pause"],
+.js-motion [data-hero="cta"],
+.js-motion [data-hero="note"],
+.js-motion [data-hero="navpill"] { opacity: 0; }
+.js-motion .tape { clip-path: inset(0 100% 0 0); }
+.js-motion .tape-mag { clip-path: inset(0 0 0 100%); }
+
+/* Pause control (WCAG 2.2.2) */
+.motion-paused *, .motion-paused *::before, .motion-paused *::after { animation-play-state: paused !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: 150ms !important; scroll-behavior: auto !important; }
+  .scanline { top: 50%; }
+  .draw-check path { stroke-dashoffset: 0; }
+}
