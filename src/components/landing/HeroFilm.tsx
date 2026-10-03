@@ -5,7 +5,7 @@ import { useMotionState } from "./motion-state";
 
 /**
  * The hero film: a 12 s seamless loop rendered from code (source in /hero-film).
- * Phone-shaped screens (w/h ≤ 0.7) get the 9:16 cut, everything else (tablets included) the
+ * Phone-shaped screens (w/h ≤ 0.8, incl. portrait tablets) get the 9:16 cut, everything else (tablets included) the
  * 16:9 cut; only one file downloads. Keep TALL in sync with the hero CSS in globals.css.
  *
  * The poster is server-rendered, so it paints (and counts as LCP) before any JS runs.
@@ -23,7 +23,7 @@ const BASE = "/hero";
 const POSTER_T = 2.3 + 1 / 120; // middle of the poster frame at 60 fps
 
 type Cut = "9x16" | "16x9";
-const TALL = "(max-aspect-ratio: 7/10)";
+const TALL = "(max-aspect-ratio: 4/5)";
 
 /** Resolves after window load plus an idle moment. */
 function afterLoad(cb: () => void): () => void {

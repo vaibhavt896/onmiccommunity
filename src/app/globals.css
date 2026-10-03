@@ -170,47 +170,54 @@ main { overflow-x: clip; }
 .nav[data-solid="true"] .pill { background: var(--color-lime); }
 
 /* ------------------------------------------------------------------ hero (film stage)
-   The film is the headline and plays clean: full colour, no scrim, no UI on top
-   (it is framed full-bleed with its own type). The dock sits on ink right below it.
-   Film height is capped so the CTA always lands in the first screen. Phones crop only
-   from the bottom and never past ~27% ("YOUR TURN." still fits); on anything shorter
-   the dock rides up over the film's bottom edge instead (the negative margin below). */
+   The film fills the first screen (under the transparent nav) and the dock (CTA, date,
+   note, pause) is overlaid on its bottom edge over a soft gradient. The box is sized from
+   the VIEWPORT (100svh, i.e. what is actually visible with browser toolbars) but never
+   taller than the video's own shape (9:16 / 16:9), so object-fit: cover trims at most a
+   few percent on real phones instead of 25%+. Below the film sits a 150px strip that holds
+   the tapes; the dock is anchored to the film's bottom edge, so the CTA is on-screen
+   whenever the film is. */
 .hero { position: relative; overflow: hidden; isolation: isolate; background: var(--color-ink); padding-bottom: 150px; }
 .hero-film { position: relative; width: 100%; overflow: hidden; background: var(--color-ink); }
+.hero-film::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(13, 6, 22, 0.55) 0, rgba(13, 6, 22, 0) 96px),
+    linear-gradient(0deg, rgba(13, 6, 22, 0.8) 0, rgba(13, 6, 22, 0.4) 70px, rgba(13, 6, 22, 0) 130px);
+}
 .hero-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .hero-video { opacity: 0; transition: opacity 240ms linear; }
 .hero-video[data-live="true"] { opacity: 1; }
 
+/* CTA + pause: pinned to the film's bottom edge, above the gradient. */
 .hero-dock {
-  position: relative; z-index: 3; display: grid; gap: 14px 12px; padding-top: 16px;
-  grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "cta cta" "meta pause";
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; padding-bottom: 16px;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px;
 }
-.hero-dock .dock-cta { grid-area: cta; width: 100%; max-width: 560px; }
-.hero-dock .dock-meta { grid-area: meta; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; min-width: 0; }
-.hero-dock .hero-pause { grid-area: pause; }
+.hero-dock .dock-cta { max-width: 560px; }
+.hero-dock .btn { min-height: 60px; font-size: 24px; }
+/* Date chip + venue note sit just under the film, above the tapes. */
+.hero-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; padding-top: 14px; }
 
-/* Phone-shaped screens (w/h ≤ 0.7): 9:16 cut below the nav, cropped only from the bottom. */
-@media (max-aspect-ratio: 7/10) {
-  .hero { padding-top: 68px; }
-  .hero-film { height: 177.78vw; height: min(177.78vw, max(100svh - 160px, 130vw)); }
-  .hero-media { object-position: 50% 0%; }
-  .hero-dock { margin-top: min(0px, 100svh - 160px - min(177.78vw, max(100svh - 160px, 130vw))); }
-  .hero-dock .hero-pause { align-self: start; }
+/* Phone-shaped screens (w/h ≤ 0.8, incl. portrait tablets): 9:16 cut. Focus the upper-middle so the bottom trims first. */
+@media (max-aspect-ratio: 4/5) {
+  .hero-film { height: min(177.78vw, 100svh); }
+  .hero-media { object-position: 50% 35%; }
 }
-/* Everything wider (desktop, laptop, tablets): 16:9 cut full-bleed under the nav. */
-@media (min-aspect-ratio: 7001/10000) {
-  .hero-film { height: 56.25vw; height: min(56.25vw, max(100svh - 96px, 42vw)); }
-  .hero-media { object-position: 50% 50%; }
-  .hero-dock { margin-top: min(0px, 100svh - 96px - min(56.25vw, max(100svh - 96px, 42vw))); }
+/* Portrait tablets (0.7 to 0.8): cover would crop the 9:16 film by ~25%, so show it whole,
+   centred at its natural width (the page is ink either side). */
+@media (min-aspect-ratio: 7/10) and (max-aspect-ratio: 4/5) {
+  .hero-film { width: min(100%, 56.25svh); height: auto; aspect-ratio: 9 / 16; margin-inline: auto; }
 }
-/* Wide enough for one bar: CTA · date + note · pause. */
-@media (min-aspect-ratio: 7001/10000) and (min-width: 1024px) {
-  .hero-dock {
-    grid-template-columns: minmax(0, 440px) minmax(0, 1fr) auto; grid-template-areas: "cta meta pause"; align-items: center;
-    column-gap: 28px; padding-top: 18px;
-  }
-  .hero-dock .dock-cta { max-width: none; }
-  .hero-dock .dock-meta { flex-direction: row; align-items: center; flex-wrap: wrap; gap: 10px 20px; }
+/* Everything wider: 16:9 cut. */
+@media (min-aspect-ratio: 4001/5000) {
+  .hero-film { height: min(56.25vw, 100svh); min-height: 380px; }
+  .hero-media { object-position: 50% 40%; }
+}
+/* Desktop: CTA left, pause at the far right of the container. */
+@media (min-aspect-ratio: 4001/5000) and (min-width: 1024px) {
+  .hero-dock { grid-template-columns: minmax(0, 440px) 1fr auto; padding-bottom: 20px; }
+  .hero-dock .hero-pause { grid-column: 3; }
 }
 
 .hero-pause {

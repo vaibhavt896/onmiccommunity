@@ -55,21 +55,22 @@ export function Landing({ jam, openOnLoad = false }: { jam: PublicJam | null; op
 
           <div className="hero-film">
             <HeroFilm />
+            {/* Only the CTA and the pause control ride on the film; they cover the least possible of it. */}
+            <div className="hero-dock wrap">
+              <div className="dock-cta" data-hero="cta">
+                <BookButton source="hero_cta_click" className="btn btn-block" data-herocta>
+                  Grab your seat <Arrow className="cta-arrow" />
+                </BookButton>
+              </div>
+              <HeroControls />
+            </div>
           </div>
 
-          <div className="hero-dock wrap">
-            <div className="dock-cta" data-hero="cta">
-              <BookButton source="hero_cta_click" className="btn btn-block" data-herocta>
-                Grab your seat <Arrow className="cta-arrow" />
-              </BookButton>
-            </div>
-            <div className="dock-meta">
-              <DateChip />
-              <p className="mono flex items-center gap-2 text-[12px] tracking-wider text-cream/90" data-hero="note">
-                <Lock size={14} /> VENUE IS A SECRET · REVEALED AFTER BOOKING
-              </p>
-            </div>
-            <HeroControls />
+          <div className="hero-meta wrap">
+            <DateChip />
+            <p className="mono flex items-center gap-2 text-[12px] tracking-wider text-cream/90" data-hero="note">
+              <Lock size={14} /> VENUE IS A SECRET · REVEALED AFTER BOOKING
+            </p>
           </div>
 
           <div className="tapes">
@@ -159,7 +160,7 @@ export function Landing({ jam, openOnLoad = false }: { jam: PublicJam | null; op
 
                 <div className="mt-12">
                   <SeatMeter />
-                  <BookButton source="ticket_cta_click" className="btn btn-block mt-5 justify-between whitespace-nowrap px-5 text-[23px]">
+                  <BookButton source="ticket_cta_click" className="btn btn-block mt-5 justify-between gap-2 px-4 text-[21px]">
                     <span>Book my seat</span><span className="flex items-center gap-2"><Price /> <Arrow size={22} /></span>
                   </BookButton>
                   <p className="mono mt-4 text-center text-[11px] tracking-wider">1 SEAT = 1 PERSON · FRIENDS BOOK THEIR OWN</p>

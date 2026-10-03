@@ -6,7 +6,12 @@ import { Logo } from "../Logo";
 import { chipDate, timeOf } from "@/lib/format";
 import { track, type TrackEvent } from "@/lib/track";
 
-const SOLD_OUT = "Sold out / Join the waitlist";
+/** "Sold out / Join the waitlist"; on phones just "Join the waitlist" so it stays on one line. */
+const SOLD_OUT = (
+  <>
+    <span className="hidden sm:inline">Sold out / </span>Join the waitlist
+  </>
+);
 
 /** Any "Book" button. Switches to the waitlist when sold out or past cutoff. */
 export function BookButton({
