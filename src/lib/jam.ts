@@ -57,3 +57,13 @@ export async function currentPublicJam(): Promise<PublicJam | null> {
   if (!jam) return null;
   return toPublic(jam, await bookedCount(jam.id));
 }
+
+/** For pages: a database failure must not take the whole landing page down. */
+export async function safePublicJam(): Promise<PublicJam | null> {
+  try {
+    return await currentPublicJam();
+  } catch (e) {
+    console.error("[jam] could not load the current jam (check DATABASE_URL and that db:setup has run):", e);
+    return null;
+  }
+}
