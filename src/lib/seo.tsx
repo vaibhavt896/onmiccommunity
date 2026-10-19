@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { chipDate, timeOf } from "./format";
-import { SITE_URL } from "./public-config";
+import { INSTAGRAM_URL, SITE_URL, WHATSAPP_URL } from "./public-config";
 import type { PublicJam } from "./types";
 
 export function jamMetadata(jam: PublicJam | null, path = "/"): Metadata {
@@ -36,7 +36,7 @@ export function EventJsonLd({ jam }: { jam: PublicJam | null }) {
       address: { "@type": "PostalAddress", addressLocality: "Kanpur", addressRegion: "Uttar Pradesh", addressCountry: "IN" },
     },
     image: [`${SITE_URL}/opengraph-image`],
-    organizer: { "@type": "Organization", name: "On Mic Community", url: SITE_URL },
+    organizer: { "@type": "Organization", name: "On Mic Community", url: SITE_URL, sameAs: [INSTAGRAM_URL, WHATSAPP_URL] },
     offers: {
       "@type": "Offer",
       price: jam.price,

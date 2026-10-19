@@ -104,7 +104,8 @@ URL for `DATABASE_URL`, then run `npm run db:setup` once against it.
 
 - **Testimonials:** `QUOTES` in `src/lib/content.ts` are invented. Replace with real, permitted quotes.
 - **Refund wording:** `REFUND_LINE` in `src/lib/content.ts`.
-- **UPI ID, Instagram and WhatsApp links:** env vars. The `onmic@upi` default must not go to production.
+- **UPI ID:** env var. The `onmic@upi` default must not go to production.
+- **Instagram and WhatsApp:** default to the real community accounts (`@on_mic_community`, the community invite link); override with `NEXT_PUBLIC_INSTAGRAM_URL` / `NEXT_PUBLIC_WHATSAPP_URL` if they change.
 - **Venue, date, price and capacity:** edit in `/admin`.
 - **Logo:** the raster logo in `public/brand/` is a reproduction; swap in the designer's original SVG when available.
 

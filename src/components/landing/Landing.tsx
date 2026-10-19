@@ -7,7 +7,7 @@ import { BookButton, DateChip, Nav, Price, SeatMeter, TicketDate } from "./live"
 import { HeroFilm } from "./HeroFilm";
 import { HeroControls, Motion } from "./Motion";
 import { QUOTES, STATS, STEPS, VIBES } from "@/lib/content";
-import { INSTAGRAM_URL, WHATSAPP_URL } from "@/lib/public-config";
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL, WHATSAPP_URL } from "@/lib/public-config";
 import type { PublicJam } from "@/lib/types";
 
 /**
@@ -256,7 +256,7 @@ export function Landing({ jam, openOnLoad = false }: { jam: PublicJam | null; op
               </BookButton>
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a className="pill" href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"><Instagram /> Instagram</a>
+              <a className="pill" href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label={`On Mic Community on Instagram, ${INSTAGRAM_HANDLE}`}><Instagram /> {INSTAGRAM_HANDLE}</a>
               <a className="pill bg-lime" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"><WhatsApp /> WhatsApp community</a>
             </div>
 

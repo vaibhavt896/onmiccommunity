@@ -6,6 +6,7 @@ import { bookedCount, currentJamRow, type JamRow } from "./jam";
 import { passToken, passUrl, tokenHash } from "./token";
 import type { BookingState, PassView, Tier } from "./types";
 import { passLabel } from "./format";
+import { WHATSAPP_URL } from "./public-config";
 
 export const HOLD_MINUTES = 10;
 const ACTIVE = `('HELD','PAID_PENDING','CONFIRMED','CHECKED_IN')`;
@@ -191,7 +192,7 @@ export async function passView(token: string): Promise<PassView | null> {
 export function whatsappLink(b: Pick<BookingRow, "id" | "name" | "phone" | "pass_no" | "token_rev">): string {
   const url = passUrl(passToken(b.id, b.token_rev));
   const text = `Hey ${b.name.split(" ")[0]}! Your On Mic pass is confirmed (${passLabel(b.pass_no)}). ` +
-    `Open it here, the venue is inside: ${url}\nShow the QR at the door. See you there!`;
+    `Open it here, the venue is inside: ${url}\nShow the QR at the door. Join the community: ${WHATSAPP_URL}\nSee you there!`;
   return `https://wa.me/91${b.phone}?text=${encodeURIComponent(text)}`;
 }
 

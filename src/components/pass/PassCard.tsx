@@ -6,7 +6,8 @@ import type { PassView } from "@/lib/types";
 import { TIER_LABEL } from "@/lib/types";
 import { chipDate, longDate, passLabel, timeOf } from "@/lib/format";
 import { haptic } from "@/lib/track";
-import { Lock } from "../icons";
+import { Instagram, Lock, WhatsApp } from "../icons";
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL, WHATSAPP_URL } from "@/lib/public-config";
 import { confetti } from "./confetti";
 import { downloadIcs, downloadPng } from "./files";
 
@@ -146,6 +147,16 @@ export function PassCard({ token, initial, celebrate = false }: { token: string;
         <button type="button" className="btn btn-sm btn-white btn-block mt-6" onClick={() => downloadIcs(v, passUrl)}>
           Add to calendar
         </button>
+      )}
+      {(verified || v.state === "PAID_PENDING") && (
+        <div className="mt-6 rounded-[18px] border-[3px] border-ink bg-white p-4">
+          <p className="font-display text-[24px] leading-none">While you wait</p>
+          <p className="mt-1 text-[14px]">Join the community for jam updates, set lists and photos.</p>
+          <div className="mt-3 grid grid-cols-2 gap-3">
+            <a className="btn btn-sm btn-block whitespace-nowrap !px-3 !text-[16px]" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"><WhatsApp size={18} /> WhatsApp</a>
+            <a className="btn btn-sm btn-white btn-block whitespace-nowrap !px-3 !text-[16px]" href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label={`Instagram ${INSTAGRAM_HANDLE}`}><Instagram size={18} /> Instagram</a>
+          </div>
+        </div>
       )}
       <p className="mono mt-5 text-center text-[11px] leading-relaxed tracking-wider">
         {verified ? `SHOW THIS QR AT THE DOOR · ONE-TIME ENTRY · ${longDate(v.jam.startsAt).toUpperCase()}` : "KEEP THIS LINK. IT'S YOUR PASS."}
