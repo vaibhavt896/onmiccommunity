@@ -66,23 +66,46 @@ Tag links as `https://<domain>/?utm_source=instagram&utm_medium=reel&utm_campaig
 The UTM is kept for the visit, stored on the booking, and summarised on `/admin` under "Bookings by source".
 Analytics are first-party and cookieless (`analytics_event`, no IPs).
 
+## Project layout
+
+```
+src/app/          routes: landing, /book, /pass, /admin, /door, /counter, /login, /privacy, API handlers, icons, manifest, social cards
+src/components/   landing sections, booking sheets, pass card, logo, icons
+src/lib/          booking rules, jam queries, tokens, validation, rate limits, copy and media config (content.ts)
+db/               schema.sql (additive, safe to re-run)
+scripts/          db-setup.mjs, staff-add.mjs
+tests/            acceptance suite against a real server and database
+public/           website assets (see below)
+hero-film/        source of the 12 s hero film, rendered from code
+design/           social templates and exports, brand guide (not shipped)
+docs/             asset brief, creative-kit handoff, remaining content checklist
+```
+
+### Public assets
+
+| Folder | Contents |
+| --- | --- |
+| `public/brand/` | logo (WebP/PNG at 240, 480, 768, 1024 px and SVG variants), symbol, `icons/` (favicon family, Apple touch, maskable) |
+| `public/vibes/` | the four photo-wall tiles (5:4, 1:1, 1:1, 2:1) |
+| `public/final/` | final call-to-action backgrounds, 16:9 and 4:5 |
+| `public/stage/` | transparent performer cut-outs for the stage lineup |
+| `public/steps/`, `public/acts/` | step stickers and act icons |
+| `public/textures/` | ticket paper grain |
+| `public/hero/` | hero film (16:9 and 9:16) with posters |
+
+Exact sizes and the remaining content still needed are in [docs](docs/README.md). Photos are generated promotional scenes, not real events.
+
 ## Deploy (Vercel + Neon or Supabase)
 
-Set the project's **Root Directory** to `onmic-site`. Add the variables from `.env.example`, using the pooled Postgres
+Import the repo root as the Vercel project. Add the variables from `.env.example`, using the pooled Postgres
 URL for `DATABASE_URL`, then run `npm run db:setup` once against it.
 
 ## Still placeholder (brief §10)
 
-These are marked `PLACEHOLDER` in the code:
-
-- **Logo:** `src/components/Logo.tsx` is drawn from the description. Swap in the real SVG.
-- **Vibes photos and clips:** `VIBES` in `src/lib/content.ts`.
-- **Testimonials:** `QUOTES` in `src/lib/content.ts`.
+- **Testimonials:** `QUOTES` in `src/lib/content.ts` are invented. Replace with real, permitted quotes.
 - **Refund wording:** `REFUND_LINE` in `src/lib/content.ts`.
-- **UPI ID, Instagram and WhatsApp links:** env vars.
+- **UPI ID, Instagram and WhatsApp links:** env vars. The `onmic@upi` default must not go to production.
 - **Venue, date, price and capacity:** edit in `/admin`.
+- **Logo:** the raster logo in `public/brand/` is a reproduction; swap in the designer's original SVG when available.
 
-Headings for sections 03, 06 and 07 ("NEXT JAM, your seat's waiting.", "HEARD AT the last jam.",
-"GOOD TO know.") are not in the brief. Confirm them against Figma.
-
-Phase 2 (Jam Assist, brief §8) is intentionally not built. The brief schedules it after the first live jam.
+Full checklist: [docs/assets/remaining-content.md](docs/assets/remaining-content.md).

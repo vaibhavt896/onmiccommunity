@@ -1,0 +1,90 @@
+file,width,height,bytes,provenance
+masters/crowd.png,1402,1122,2471581,AI-generated
+masters/drop.png,1254,1254,1954403,AI-generated
+masters/final-desktop.png,1672,941,1969373,AI-generated
+masters/final-mobile.png,1122,1402,1955032,AI-generated
+masters/jam.png,1254,1254,2046013,AI-generated
+masters/open.png,1774,887,2265642,AI-generated
+masters/performer.png,1122,1402,1011884,AI-generated
+preview/asset-overview.jpg,1800,1620,521172,Graphic/export or preserved brand raster
+public/acts/beatbox.svg,24,24,239,Graphic/export or preserved brand raster
+public/acts/keys.svg,24,24,317,Graphic/export or preserved brand raster
+public/acts/poetry.svg,24,24,254,Graphic/export or preserved brand raster
+public/acts/rap.svg,24,24,327,Graphic/export or preserved brand raster
+public/acts/sing.svg,24,24,291,Graphic/export or preserved brand raster
+public/acts/standup.svg,24,24,285,Graphic/export or preserved brand raster
+public/acts/vibe.svg,24,24,271,Graphic/export or preserved brand raster
+public/brand/icons/apple-touch-180.png,180,180,3050,Graphic/export or preserved brand raster
+public/brand/icons/favicon.ico,,,1541,Graphic/export or preserved brand raster
+public/brand/icons/onmic-icon-16.png,16,16,257,Graphic/export or preserved brand raster
+public/brand/icons/onmic-icon-180.png,180,180,3050,Graphic/export or preserved brand raster
+public/brand/icons/onmic-icon-192.png,192,192,3324,Graphic/export or preserved brand raster
+public/brand/icons/onmic-icon-32.png,32,32,499,Graphic/export or preserved brand raster
+public/brand/icons/onmic-icon-48.png,48,48,731,Graphic/export or preserved brand raster
+public/brand/icons/onmic-icon-512.png,512,512,12936,Graphic/export or preserved brand raster
+public/brand/icons/onmic-icon-maskable-512.png,512,512,12936,Graphic/export or preserved brand raster
+public/brand/onmic-logo-1024.png,1024,683,167809,Graphic/export or preserved brand raster
+public/brand/onmic-logo-1024.webp,1024,683,114960,Graphic/export or preserved brand raster
+public/brand/onmic-logo-240.png,240,160,18021,Graphic/export or preserved brand raster
+public/brand/onmic-logo-240.webp,240,160,12074,Graphic/export or preserved brand raster
+public/brand/onmic-logo-480.png,480,320,49822,Graphic/export or preserved brand raster
+public/brand/onmic-logo-480.webp,480,320,32770,Graphic/export or preserved brand raster
+public/brand/onmic-logo-768.png,768,512,102277,Graphic/export or preserved brand raster
+public/brand/onmic-logo-768.webp,768,512,70348,Graphic/export or preserved brand raster
+public/brand/onmic-logo-ink.svg,1536,1024,18149,Vector reconstruction
+public/brand/onmic-logo-mono-ink.svg,1536,1024,18149,Vector reconstruction
+public/brand/onmic-logo-white.svg,1536,1024,18149,Vector reconstruction
+public/brand/onmic-logo.svg,1536,1024,18149,Vector reconstruction
+public/brand/onmic-logo.webp,1536,1024,234736,Graphic/export or preserved brand raster
+public/brand/onmic-symbol.svg,96,96,299,Graphic/export or preserved brand raster
+public/final/crowd-16x9.jpg,2560,1440,274827,AI-generated
+public/final/crowd-16x9.webp,2560,1440,201050,AI-generated
+public/final/crowd-4x5.jpg,1200,1500,151872,AI-generated
+public/final/crowd-4x5.webp,1200,1500,102048,AI-generated
+public/hero/onmic-hero-16x9.avif,1920,1080,39603,Preserved existing hero
+public/hero/onmic-hero-16x9.jpg,1920,1080,170130,Preserved existing hero
+public/hero/onmic-hero-16x9.mp4,,,3099777,Preserved existing hero
+public/hero/onmic-hero-16x9.webp,1920,1080,109996,Preserved existing hero
+public/hero/onmic-hero-9x16.avif,1080,1920,40435,Preserved existing hero
+public/hero/onmic-hero-9x16.jpg,1080,1920,175345,Preserved existing hero
+public/hero/onmic-hero-9x16.mp4,,,2829922,Preserved existing hero
+public/hero/onmic-hero-9x16.webp,1080,1920,111082,Preserved existing hero
+public/stage/performer.png,1000,1250,1006938,AI-generated
+public/stage/performer.webp,1000,1250,123434,AI-generated
+public/steps/book.png,320,320,19268,Graphic/export or preserved brand raster
+public/steps/book.svg,320,320,30665,Graphic/export or preserved brand raster
+public/steps/pass.png,320,320,19991,Graphic/export or preserved brand raster
+public/steps/pass.svg,320,320,61960,Graphic/export or preserved brand raster
+public/steps/scan.png,320,320,11902,Graphic/export or preserved brand raster
+public/steps/scan.svg,320,320,12142,Graphic/export or preserved brand raster
+public/textures/ticket-grain.png,1024,1024,12231,Graphic/export or preserved brand raster
+public/venues/reference-cafe.jpg,1600,900,189244,User-supplied photograph
+public/venues/reference-cafe.webp,1600,900,189874,User-supplied photograph
+public/vibes/crowd.jpg,1600,1280,240205,AI-generated
+public/vibes/crowd.webp,1600,1280,239162,AI-generated
+public/vibes/drop.jpg,1200,1200,146107,AI-generated
+public/vibes/drop.webp,1200,1200,99300,AI-generated
+public/vibes/jam.jpg,1200,1200,166646,AI-generated
+public/vibes/jam.webp,1200,1200,119784,AI-generated
+public/vibes/open.jpg,2000,1000,244160,AI-generated
+public/vibes/open.webp,2000,1000,206222,AI-generated
+social/exports/book-now-story.png,1080,1920,2129366,Graphic/export or preserved brand raster
+social/exports/community-feed.png,1080,1350,1515085,Graphic/export or preserved brand raster
+social/exports/instagram-profile.png,320,320,6494,Graphic/export or preserved brand raster
+social/exports/jam-reel-cover.png,1080,1920,1550426,Graphic/export or preserved brand raster
+social/exports/whatsapp-pass-message.png,800,418,24932,Graphic/export or preserved brand raster
+social/exports/whatsapp-profile.png,640,640,17972,Graphic/export or preserved brand raster
+social/highlights/community.png,1080,1920,61730,Graphic/export or preserved brand raster
+social/highlights/community.svg,1080,1920,446,Graphic/export or preserved brand raster
+social/highlights/info.png,1080,1920,58516,Graphic/export or preserved brand raster
+social/highlights/info.svg,1080,1920,429,Graphic/export or preserved brand raster
+social/highlights/jams.png,1080,1920,59146,Graphic/export or preserved brand raster
+social/highlights/jams.svg,1080,1920,492,Graphic/export or preserved brand raster
+social/highlights/moments.png,1080,1920,58606,Graphic/export or preserved brand raster
+social/highlights/moments.svg,1080,1920,414,Graphic/export or preserved brand raster
+social/highlights/open-mic.png,1080,1920,61132,Graphic/export or preserved brand raster
+social/highlights/open-mic.svg,1080,1920,466,Graphic/export or preserved brand raster
+social/templates/book-now-story.svg,1080,1920,1851,Graphic/export or preserved brand raster
+social/templates/community-feed.svg,1080,1350,1904,Graphic/export or preserved brand raster
+social/templates/jam-reel-cover.svg,1080,1920,1759,Graphic/export or preserved brand raster
+social/templates/whatsapp-pass-message.svg,800,418,853,Graphic/export or preserved brand raster
