@@ -108,6 +108,7 @@ export function Landing({ jam, openOnLoad = false }: { jam: PublicJam | null; op
             <ol className="grid gap-5 lg:grid-cols-3 lg:gap-8">
               {STEPS.map((s) => (
                 <li key={s.n} className="rounded-[24px] border-[3px] border-cream p-6 shadow-[5px_5px_0_var(--color-violet)]" data-step>
+                  <img src={s.icon} alt="" width={112} height={112} loading="lazy" decoding="async" className="float-right -mr-1 -mt-1 h-24 w-24 lg:h-28 lg:w-28" />
                   <p className={`font-display text-[80px] leading-[0.85] ${s.color}`} data-stepnum>{s.n}</p>
                   <h3 className="font-display mt-3 text-[34px] leading-[0.95]">{s.title}</h3>
                   <p className="mt-2 text-[16px] text-cream/80">{s.sub}</p>
@@ -179,8 +180,10 @@ export function Landing({ jam, openOnLoad = false }: { jam: PublicJam | null; op
                 <figure key={v.key} className={`tile ${v.cls}`} data-tile>
                   {v.video ? (
                     <video className="media h-[calc(100%+48px)] w-full object-cover" src={v.video} poster={v.poster} muted loop playsInline preload="none" data-media data-video aria-hidden="true" />
+                  ) : v.image ? (
+                    <img className="media h-[calc(100%+48px)] w-full object-cover" src={v.image} width={v.size?.[0]} height={v.size?.[1]} alt="" loading="lazy" decoding="async" data-media />
                   ) : (
-                    <div className="media grain" data-media style={{ backgroundImage: v.image ? `url(${v.image})` : v.gradient }} />
+                    <div className="media grain" data-media style={{ backgroundImage: v.gradient }} />
                   )}
                   <figcaption className="label">{v.label}</figcaption>
                   {v.live && (
@@ -195,13 +198,21 @@ export function Landing({ jam, openOnLoad = false }: { jam: PublicJam | null; op
         </section>
 
         {/* ============================================================ 05 STAGE */}
-        <section className="section bg-lime text-ink" id="stage">
+        <section className="section overflow-hidden bg-lime text-ink" id="stage">
           <div className="wrap lg:grid lg:grid-cols-[1fr_1fr] lg:gap-16">
-            <Heading kicker="05 / The stage" line="GOT SOMETHING" serif="to say?" />
+            <div>
+              <Heading kicker="05 / The stage" line="GOT SOMETHING" serif="to say?" />
+            </div>
             <div>
               <p className="mb-6 max-w-[34ch] text-[17px] font-bold">Pick your thing. We'll line you up for a slot on the night.</p>
               <ActPicker />
             </div>
+          </div>
+
+          <div className="lineup wrap" aria-hidden="true">
+            <img src="/stage/guitarist.webp" alt="" width={521} height={900} loading="lazy" decoding="async" />
+            <img src="/stage/singer.webp" alt="" width={375} height={900} loading="lazy" decoding="async" />
+            <img src="/stage/poet.webp" alt="" width={358} height={900} loading="lazy" decoding="async" />
           </div>
         </section>
 
@@ -251,7 +262,7 @@ export function Landing({ jam, openOnLoad = false }: { jam: PublicJam | null; op
 
             <footer className="mt-16 border-t-[3px] border-cream/30 pt-8">
               <div className="flex items-center gap-4">
-                <Logo size={72} />
+                <Logo size={110} />
                 <div>
                   <p className="font-display text-[28px] leading-none">On Mic Community</p>
                   <p className="font-serif-i text-[20px]">open mic + jam nights · Kanpur</p>

@@ -5,6 +5,9 @@ import { useJam } from "../JamProvider";
 import { ACTS } from "@/lib/validate";
 import { ACT_ROTATIONS } from "@/lib/content";
 
+/** Icon file per act, in the same order as ACTS. */
+const ACT_ICONS = ["sing", "rap", "poetry", "standup", "keys", "beatbox", "vibe"];
+
 /** Selectable act chips that feed the performer sign-up form. */
 export function ActPicker() {
   const { openPerformer } = useJam();
@@ -23,6 +26,7 @@ export function ActPicker() {
             style={{ ["--r" as string]: `${ACT_ROTATIONS[i]}deg` }}
             onClick={() => toggle(a)}
           >
+            <span className="act-icon" aria-hidden="true" style={{ ["--icon" as string]: `url(/acts/${ACT_ICONS[i]}.svg)` }} />
             {a}
           </button>
         ))}

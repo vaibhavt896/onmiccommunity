@@ -244,6 +244,7 @@ main { overflow-x: clip; }
 .ticket {
   position: relative; background: var(--color-cream); color: var(--color-ink);
   border: var(--outline); border-radius: var(--radius-card-lg); box-shadow: var(--shadow-lg);
+  background-image: url("/textures/ticket-grain.png"); background-size: 512px 512px;
 }
 .ticket .notch {
   position: absolute; top: var(--perf, 62%); width: 30px; height: 30px; border-radius: 999px;
@@ -265,7 +266,8 @@ main { overflow-x: clip; }
 .bento .t-crowd { grid-column: span 2; grid-row: span 2; }
 .bento .t-open { grid-column: span 2; }
 .bento .media { position: absolute; inset: -24px 0; background-size: cover; background-position: center; will-change: transform; }
-.bento .label {
+.bento .tile::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(0deg, rgba(13, 6, 22, 0.72) 0%, rgba(13, 6, 22, 0) 48%); }
+.bento .label { z-index: 1;
   position: absolute; left: 14px; bottom: 12px; right: 14px;
   font-family: var(--font-display); text-transform: uppercase; font-size: 34px; line-height: 0.92; color: var(--color-cream);
   text-shadow: 3px 3px 0 var(--color-ink);
@@ -289,6 +291,10 @@ main { overflow-x: clip; }
   border: var(--outline); border-radius: 999px; box-shadow: 4px 4px 0 var(--color-ink);
   transform: rotate(var(--r, 0deg)); transition: transform 160ms var(--ease-spring), box-shadow 160ms, background-color 160ms;
   cursor: pointer;
+}
+.act-icon {
+  width: 24px; height: 24px; flex: none; background: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat; mask: var(--icon) center / contain no-repeat;
 }
 .act[aria-pressed="true"] { background: var(--color-ink); color: var(--color-lime); box-shadow: 4px 4px 0 var(--color-magenta); transform: rotate(var(--r, 0deg)) scale(1.04); }
 .act:active { transform: rotate(var(--r, 0deg)) translate(2px, 2px); box-shadow: 2px 2px 0 var(--color-ink); }
@@ -324,6 +330,25 @@ main { overflow-x: clip; }
     radial-gradient(30% 30% at 50% 90%, rgba(198, 255, 61, 0.25), transparent 70%);
   animation: drift 18s ease-in-out infinite alternate;
 }
+/* Real crowd photo under the colour wash: wide on desktop, 4:5 on phones. */
+#final .final-bg {
+  background-color: var(--color-ink);
+  background-image: linear-gradient(0deg, rgba(13, 6, 22, 0.92), rgba(58, 18, 168, 0.42)), url("/final/crowd-4x5.webp");
+  background-size: cover; background-position: center top;
+}
+@media (min-width: 768px) {
+  #final .final-bg {
+    background-image: linear-gradient(90deg, rgba(13, 6, 22, 0.88), rgba(58, 18, 168, 0.4)), url("/final/crowd-16x9.webp");
+    background-position: center;
+  }
+}
+#final .final-bg::before { opacity: 0.25; }
+/* Stage lineup: three performers standing on the bottom edge of the lime section. */
+#stage { padding-bottom: 0; }
+.lineup { --h: min(52vw, 440px); display: flex; justify-content: center; align-items: flex-end; margin-top: 28px; }
+.lineup img { height: var(--h); width: auto; max-width: none; flex: none; filter: drop-shadow(5px 5px 0 var(--color-ink)); }
+.lineup img + img { margin-left: calc(var(--h) * -0.2); }
+.lineup img:nth-child(2) { position: relative; z-index: 1; }
 @keyframes drift {
   from { transform: translate3d(-8%, -6%, 0) rotate(0deg); }
   to { transform: translate3d(8%, 6%, 0) rotate(25deg); }

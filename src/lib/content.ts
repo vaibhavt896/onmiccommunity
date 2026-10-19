@@ -11,25 +11,25 @@ export const STATS = [
 ] as const;
 
 export const STEPS = [
-  { n: "01", title: "Book your seat", sub: "UPI, no app.", color: "text-lime" },
-  { n: "02", title: "Get your QR pass", sub: "Venue revealed inside.", color: "text-magenta" },
-  { n: "03", title: "Scan. Sip. Shine.", sub: "One scan at the door. Mocktail included.", color: "text-sky" },
+  { n: "01", icon: "/steps/book.svg", title: "Book your seat", sub: "UPI, no app.", color: "text-lime" },
+  { n: "02", icon: "/steps/pass.svg", title: "Get your QR pass", sub: "Venue revealed inside.", color: "text-magenta" },
+  { n: "03", icon: "/steps/scan.svg", title: "Scan. Sip. Shine.", sub: "One scan at the door. Mocktail included.", color: "text-sky" },
 ] as const;
 
 /**
- * PLACEHOLDER: gradient tiles until real jam photos / clips arrive.
- * Add `image: "/vibes/crowd.jpg"` or `video: "/vibes/jam.mp4"` (muted,
- * vertical, under 1.5 MB) plus `poster` and the tile uses them instead.
+ * The vibes wall. Each tile takes a still (`image`, with its pixel `size`) or a muted
+ * loop (`video` + `poster`, under 1.5 MB). The gradient is the fallback underneath.
+ * Stills are generated promotional scenes inspired by the community, not event records.
  */
-export type VibeTile = { key: string; label: string; cls: string; gradient: string; image?: string; video?: string; poster?: string; live?: boolean };
+export type VibeTile = { key: string; label: string; cls: string; gradient: string; image?: string; size?: [number, number]; video?: string; poster?: string; live?: boolean };
 export const VIBES: VibeTile[] = [
-  { key: "crowd", label: "The crowd", cls: "t-crowd", live: true,
+  { key: "crowd", image: "/vibes/crowd.webp", size: [1600, 1280], label: "The crowd", cls: "t-crowd", live: true,
     gradient: "radial-gradient(60% 50% at 30% 30%, #ff2e93 0%, transparent 70%), radial-gradient(50% 60% at 80% 80%, #6b2cff 0%, transparent 70%), linear-gradient(160deg, #3a12a8, #0d0616)" },
-  { key: "drop", label: "Mic drop", cls: "t-drop",
+  { key: "drop", image: "/vibes/drop.webp", size: [1200, 1200], label: "Mic drop", cls: "t-drop",
     gradient: "radial-gradient(70% 60% at 70% 20%, #ff7a2f 0%, transparent 70%), linear-gradient(200deg, #ff2e93, #3a12a8)" },
-  { key: "jam", label: "Live jam", cls: "t-jam",
+  { key: "jam", image: "/vibes/jam.webp", size: [1200, 1200], label: "Live jam", cls: "t-jam",
     gradient: "radial-gradient(70% 60% at 20% 80%, #47d7ff 0%, transparent 70%), linear-gradient(20deg, #6b2cff, #0d0616)" },
-  { key: "open", label: "Open stage. Open hearts.", cls: "t-open",
+  { key: "open", image: "/vibes/open.webp", size: [2000, 1000], label: "Open stage. Open hearts.", cls: "t-open",
     gradient: "radial-gradient(50% 80% at 85% 50%, #c6ff3d 0%, transparent 65%), linear-gradient(90deg, #3a12a8, #ff2e93)" },
 ];
 
