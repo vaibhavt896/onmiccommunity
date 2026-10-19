@@ -1,6 +1,18 @@
+# dependencies and build output
 node_modules/
 .next/
-.env*
-!.env.example
 next-env.d.ts
 tsconfig.tsbuildinfo
+
+# secrets (copy .env.example to .env.local)
+.env*
+!.env.example
+
+# local databases and logs
+.pgdata/
+*.log
+
+# OS and editor noise
+.DS_Store
+.idea/
+.vscode/
