@@ -123,7 +123,7 @@ export function Door() {
     <main className="min-h-dvh bg-ink pb-10 text-cream">
       <header className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-3">
-          <Logo size={40} />
+          <Logo size={46} />
           <p className="font-display text-[24px]">Door</p>
         </div>
         <p className="font-display text-[34px] leading-none text-lime" aria-live="polite">

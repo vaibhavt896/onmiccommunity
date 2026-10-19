@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import { ImageResponse } from "next/og";
 import { currentPublicJam } from "@/lib/jam";
 import { chipDate, timeOf } from "@/lib/format";
@@ -12,17 +14,17 @@ export const contentType = "image/png";
 export default async function OgImage() {
   const jam = await currentPublicJam().catch(() => null);
   const date = jam ? `${chipDate(jam.startsAt)} · ${timeOf(jam.startsAt)}` : "NEXT JAM SOON";
+  const logo = await readFile(path.join(process.cwd(), "public/brand/onmic-logo-480.png")).then(
+    (b) => `data:image/png;base64,${b.toString("base64")}`,
+    () => null,
+  );
   return new ImageResponse(
     (
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 64,
         background: "linear-gradient(180deg,#4a16d6,#2a0c7a 60%,#0d0616)", color: "#fff3e2", fontFamily: "sans-serif" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-          <div style={{ width: 110, height: 110, borderRadius: 999, background: "#a19fab", border: "6px solid #0d0616", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <div style={{ width: 56, height: 56, borderRadius: 999, background: "#0d0616", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <div style={{ width: 18, height: 18, borderRadius: 999, background: "#c6ff3d" }} />
-            </div>
-          </div>
-          <div style={{ fontSize: 40, fontWeight: 800, letterSpacing: 2 }}>ON MIC COMMUNITY</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          {logo ? <img style={{ marginTop: -30, marginBottom: -30 }} src={logo} width={270} height={180} alt="" /> : null}
         </div>
         <div style={{ display: "flex", flexDirection: "column", fontSize: 128, fontWeight: 900, lineHeight: 0.9, letterSpacing: -2 }}>
           <span>GET ON THE MIC.</span>

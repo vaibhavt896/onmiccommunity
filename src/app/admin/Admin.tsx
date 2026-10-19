@@ -92,7 +92,7 @@ export function Admin() {
       <header className="sticky top-0 z-20 border-b-[3px] border-ink bg-ink text-cream">
         <div className="mx-auto flex max-w-[1100px] items-center justify-between gap-3 px-4 py-3">
           <div className="flex items-center gap-3">
-            <Logo size={40} />
+            <Logo size={46} />
             <div>
               <p className="font-display text-[22px] leading-none">Admin</p>
               <p className="mono text-[11px] text-cream/70">{o.staff.name.toUpperCase()}</p>

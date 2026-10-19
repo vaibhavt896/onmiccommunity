@@ -48,7 +48,7 @@ export function Counter() {
     <main className="min-h-dvh bg-cream pb-16 text-ink">
       <header className="sticky top-0 z-10 border-b-[3px] border-ink bg-ink px-4 py-3 text-cream">
         <div className="mx-auto flex max-w-[640px] items-center justify-between">
-          <div className="flex items-center gap-3"><Logo size={40} /><p className="font-display text-[24px]">Counter</p></div>
+          <div className="flex items-center gap-3"><Logo size={46} /><p className="font-display text-[24px]">Counter</p></div>
           <p className="mono text-[12px]">{people ? `${served} / ${people.length} SERVED` : "…"}</p>
         </div>
       </header>

@@ -59,9 +59,9 @@ export function Nav() {
       <a href="#main" className="sr-only-focusable absolute left-3 top-3 z-50 rounded-full bg-lime px-4 py-2 font-bold text-ink">
         Skip to content
       </a>
-      <div className="wrap flex h-[68px] items-center justify-between">
+      <div className="wrap flex h-[84px] items-center justify-between">
         <a href="#top" aria-label="On Mic Community, back to top" data-hero="logo" className="block">
-          <Logo size={50} />
+          <Logo size={76} priority />
         </a>
         <span data-hero="navpill">
           <BookButton className="pill" soldOutLabel="Sold out / Waitlist">

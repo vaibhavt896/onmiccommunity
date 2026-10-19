@@ -17,7 +17,7 @@ export function PassPage({ token, view }: { token: string; view: PassView }) {
     <main className="min-h-dvh bg-violet px-5 pb-12 pt-6 text-ink" style={{ background: "linear-gradient(180deg,#4a16d6,#2a0c7a 60%,#0d0616)" }}>
       <div className="mx-auto max-w-[440px]">
         <a href="/" className="inline-flex items-center gap-3 text-cream" aria-label="On Mic Community home">
-          <Logo size={48} />
+          <Logo size={64} />
           <span className="font-display text-[22px]">On Mic Community</span>
         </a>
         <div className="mt-6 rounded-[28px] border-[3px] border-ink bg-cream p-5 shadow-[8px_8px_0_#0d0616]">

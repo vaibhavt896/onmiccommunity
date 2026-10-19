@@ -24,7 +24,7 @@ export function LoginForm({ next }: { next: string }) {
           location.href = next && (d.role === "admin" || next === `/${d.role}`) ? next : HOME[d.role];
         }}
       >
-        <Logo size={72} />
+        <Logo size={120} />
         <h1 className="font-display mt-6 text-[52px] leading-[0.9]">Staff only</h1>
         <p className="mt-2 text-cream/80">Enter your PIN. Sessions last for the evening.</p>
         <label className="mt-8 block">
