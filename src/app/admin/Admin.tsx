@@ -70,6 +70,12 @@ export function Admin() {
     setTimeout(() => setToast(""), 3000);
   };
 
+  const syncSheet = async () => {
+    flash("Syncing to Google Sheet…");
+    const r = await post("/api/admin/sheets-sync", {});
+    flash(r.ok ? `Sheet updated: ${r.data.bookings} bookings.` : r.data?.message ?? "Sync failed.");
+  };
+
   const act = async (path: string, id: string, confirmText?: string) => {
     if (confirmText && !confirm(confirmText)) return;
     const r = await post(`/api/admin/${path}`, { id });
@@ -159,7 +165,7 @@ export function Admin() {
           </Box>
         )}
 
-        <Box title={`Confirmed (${o.confirmed.length})`} right={<a className="btn btn-sm btn-white" href="/api/admin/export">CSV</a>}>
+        <Box title={`Confirmed (${o.confirmed.length})`} right={<span className="flex gap-2"><button type="button" className="btn btn-sm btn-white" onClick={syncSheet}>Sync bookings to Sheet</button><a className="btn btn-sm btn-white" href="/api/admin/export">CSV</a></span>}>
           <input className="input mb-3" placeholder="Search name, phone, pass…" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Search confirmed attendees" />
           <ul className="divide-y-2 divide-ink/10">
             {confirmed.map((p) => (

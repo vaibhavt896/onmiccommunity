@@ -1,6 +1,8 @@
+import { after } from "next/server";
 import { BookingError, createHold } from "@/lib/booking";
 import { body, clientIp, fail, json } from "@/lib/http";
 import { rateLimit } from "@/lib/ratelimit";
+import { syncBooking, syncExpired } from "@/lib/sheets";
 import { cleanInstagram, cleanName, cleanPhone, cleanUtm } from "@/lib/validate";
 
 export async function POST(req: Request) {
@@ -23,7 +25,9 @@ export async function POST(req: Request) {
       name, phone, instagram,
       utm: { source: cleanUtm(utm.source), medium: cleanUtm(utm.medium), campaign: cleanUtm(utm.campaign) },
     });
-    return json(hold, 201);
+    const { id, ...pub } = hold;
+    after(async () => { await syncBooking(id); await syncExpired(); });
+    return json(pub, 201);
   } catch (e) {
     if (e instanceof BookingError) return fail(e.status, e.code, e.message);
     throw e;

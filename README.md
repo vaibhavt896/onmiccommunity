@@ -60,6 +60,13 @@ API: `GET /api/jam/current`, `POST /api/booking/hold`, `POST /api/booking/submit
 - **Pass token:** `HMAC(TOKEN_SECRET, id:rev)`, 192 bits. Only its SHA-256 is stored. "New QR" bumps `rev`.
 - **One-time entry:** a single `UPDATE … WHERE state = 'CONFIRMED'`. Every scan goes to `scan_log`.
 
+## Google Sheet copy of the forms
+
+Waitlist and stage-slot submissions are appended to a Google Sheet, and every booking is mirrored into a `Jam Bookings` tab that updates in place
+(`GOOGLE_*` variables, service account; setup and troubleshooting in [integrations/google-sheets](integrations/google-sheets/README.md)).
+Postgres stays the source of truth: a Sheet problem is logged and never blocks a submission. **/admin → Sync bookings to Sheet** re-pushes all bookings.
+Pass links and QR tokens are never sent.
+
 ## Instagram tracking
 
 Tag links as `https://<domain>/?utm_source=instagram&utm_medium=reel&utm_campaign=<name>` (medium: `bio`, `story` or `reel`).
@@ -77,6 +84,7 @@ scripts/          db-setup.mjs, staff-add.mjs
 tests/            acceptance suite against a real server and database
 public/           website assets (see below)
 hero-film/        source of the 12 s hero film, rendered from code
+integrations/     Google Sheets sync: setup guide and a local mock of Google's API
 design/           social templates and exports, brand guide (not shipped)
 docs/             asset brief, creative-kit handoff, remaining content checklist
 ```

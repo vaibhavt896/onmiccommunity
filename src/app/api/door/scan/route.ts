@@ -1,5 +1,7 @@
+import { after } from "next/server";
 import { doorCounts, doorScan } from "@/lib/booking";
 import { body, fail, json } from "@/lib/http";
+import { syncBookingByPassNo } from "@/lib/sheets";
 import { requireStaff } from "@/lib/staff";
 
 export async function POST(req: Request) {
@@ -8,5 +10,6 @@ export async function POST(req: Request) {
   const { code } = await body(req);
   if (typeof code !== "string" || !code.trim()) return fail(400, "bad_code", "Scan a pass or type a pass number.");
   const result = await doorScan(code, staff.id);
+  if (result.result === "VERIFIED") after(() => syncBookingByPassNo(result.passNo));
   return json({ ...result, counts: await doorCounts() });
 }

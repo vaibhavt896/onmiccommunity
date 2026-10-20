@@ -14,7 +14,7 @@ export default function Privacy() {
         <h2 className="font-display text-[30px]">Why</h2>
         <p>Only to run the jam: to hold your seat, match your payment, send you your pass on WhatsApp, check you in at the door, and hand over your mocktail token. We don't sell or share your details, and we don't send marketing unless you join our community group yourself.</p>
         <h2 className="font-display text-[30px]">Who sees it</h2>
-        <p>The On Mic core team. Door and cafe-counter staff see your name and pass number on the night. The venue owner gets a headcount, not your details.</p>
+        <p>The On Mic core team, who also get a copy of each booking, stage request and waitlist entry in a private Google Sheet. Door and cafe-counter staff see your name and pass number on the night. The venue owner gets a headcount, not your details.</p>
         <h2 className="font-display text-[30px]">Analytics</h2>
         <p>We count page visits and button taps without cookies and without storing your IP address, so we can tell which Instagram posts bring people in.</p>
         <h2 className="font-display text-[30px]">Deleting your data</h2>

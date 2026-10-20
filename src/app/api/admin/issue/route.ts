@@ -1,6 +1,8 @@
+import { after } from "next/server";
 import { BookingError, issuePass, whatsappLink } from "@/lib/booking";
 import { body, fail, json } from "@/lib/http";
 import { requireStaff } from "@/lib/staff";
+import { syncBooking } from "@/lib/sheets";
 import type { Tier } from "@/lib/types";
 import { cleanName, cleanPhone } from "@/lib/validate";
 
@@ -16,6 +18,7 @@ export async function POST(req: Request) {
   if (!name || !phone || !tier) return fail(400, "bad_input", "Name, a valid 10-digit number and a ticket type are required.");
   try {
     const row = await issuePass({ name, phone, tier });
+    after(() => syncBooking(row.id));
     return json({ ok: true, whatsapp: whatsappLink(row) });
   } catch (e) {
     if (e instanceof BookingError) return fail(e.status, e.code, e.message);

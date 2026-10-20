@@ -7,6 +7,7 @@ import { passToken, passUrl, tokenHash } from "./token";
 import type { BookingState, PassView, Tier } from "./types";
 import { passLabel } from "./format";
 import { WHATSAPP_URL } from "./public-config";
+import { noteExpired } from "./sheets";
 
 export const HOLD_MINUTES = 10;
 const ACTIVE = `('HELD','PAID_PENDING','CONFIRMED','CHECKED_IN')`;
@@ -48,11 +49,12 @@ async function newPassNo(c: PoolClient, jamId: string): Promise<string> {
 }
 
 async function expireStaleHolds(c: PoolClient, jamId: string) {
-  await c.query(
+  const { rows } = await c.query<{ id: string }>(
     `update booking set state = 'EXPIRED'
-      where jam_id = $1 and state = 'HELD' and hold_expires_at <= now()`,
+      where jam_id = $1 and state = 'HELD' and hold_expires_at <= now() returning id`,
     [jamId],
   );
+  noteExpired(rows.map((r) => r.id));
 }
 
 async function assertPhoneFree(c: PoolClient, jamId: string, phone: string, exceptId?: string) {
@@ -101,6 +103,7 @@ export async function createHold(input: {
        HOLD_MINUTES, input.utm.source, input.utm.medium, input.utm.campaign],
     );
     return {
+      id,
       token,
       passNo,
       amount: jam.price_inr,

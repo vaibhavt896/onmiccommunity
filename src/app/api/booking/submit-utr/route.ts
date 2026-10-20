@@ -1,7 +1,9 @@
+import { after } from "next/server";
 import { BookingError, submitUtr } from "@/lib/booking";
 import { body, clientIp, fail, json } from "@/lib/http";
 import { rateLimit } from "@/lib/ratelimit";
-import { looksLikeToken } from "@/lib/token";
+import { syncBookingByToken, syncExpired } from "@/lib/sheets";
+import { looksLikeToken, tokenHash } from "@/lib/token";
 import { cleanUtr } from "@/lib/validate";
 
 export async function POST(req: Request) {
@@ -13,7 +15,10 @@ export async function POST(req: Request) {
     return fail(429, "rate_limited", "Too many tries. Try again in a bit.");
   }
   try {
-    return json(await submitUtr(b.token, utr));
+    const result = await submitUtr(b.token, utr);
+    const token = b.token;
+    after(async () => { await syncBookingByToken(tokenHash(token)); await syncExpired(); });
+    return json(result);
   } catch (e) {
     if (e instanceof BookingError) return fail(e.status, e.code, e.message);
     throw e;
